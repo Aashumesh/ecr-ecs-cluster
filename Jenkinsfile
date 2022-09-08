@@ -12,8 +12,6 @@ pipeline {
             }
         }
         
-    
-    stages {
         stage('Build Docker Image') {
             steps {
                 sh 'docker build --force-rm -t "274213768634.dkr.ecr.ap-south-1.amazonaws.com/myrepo" .'

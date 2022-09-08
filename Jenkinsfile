@@ -11,6 +11,7 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/Aashumesh/ecr-ecs-cluster.git']]])     
             }
         }
+        
     
     stages {
         stage('Build Docker Image') {
@@ -19,12 +20,14 @@ pipeline {
                 sh 'docker image ls'
             }
         }
+        
         stage('Push Image to ECR Repo') {
             steps {
                 sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 274213768634.dkr.ecr.ap-south-1.amazonaws.com'
                 sh 'docker push 274213768634.dkr.ecr.ap-south-1.amazonaws.com/myrepo'
             }
         }
+        
         stage('Deploy on Docker Machine') {
             steps {
                 sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin --password-stdin 274213768634.dkr.ecr.ap-south-1.amazonaws.com'
@@ -35,4 +38,4 @@ pipeline {
         }
     }
 }
-}
+

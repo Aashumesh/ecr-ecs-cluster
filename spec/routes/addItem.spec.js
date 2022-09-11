@@ -1,5 +1,5 @@
 const db = require('../../src/persistence');
-const addItem = require('../../src/routes/addItem');
+const addItems = require('../../src/routes/addItem');
 const ITEM = {
     id: 12345
 };
@@ -27,7 +27,7 @@ test('it stores item correctly', async () => {
 
     uuid.mockReturnValue(id);
 
-    await addItem(req, res);
+    await addItems(req, res);
 
     const expectedItem = {
         id,
